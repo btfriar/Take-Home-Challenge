@@ -7,6 +7,7 @@
     let errorMessage = "";
     let isFetchingNextPage = false;
 
+    //api response interface
     interface PokemonApiResponse {
         pokemon: Array<{
             id: string;
@@ -47,7 +48,11 @@
         appendResults = false,
     ) {
         if (!search || search.trim() === "") {
-            displayItems.nextPage = null;
+            displayItems = {
+                pokemon: [],
+                count: 0,
+                nextPage: null,
+            };
             return;
         }
 
@@ -67,6 +72,16 @@
             }
 
             const response = await fetch(url);
+
+            //if the search field is empty, return
+            if (!searchTerm.trim()) {
+                displayItems = {
+                    pokemon: [],
+                    count: 0,
+                    nextPage: null,
+                };
+                return;
+            }
 
             if (requestId !== currentRequestId && !appendResults) {
                 return;
@@ -115,7 +130,7 @@
                     };
                 }
 
-                // Show errors to user that were returned by api call
+                // Show the errors to user that were returned in the api res
                 if (
                     errorDetail &&
                     typeof errorDetail === "object" &&
@@ -161,7 +176,17 @@
 
     // Watch for changes to search input
     $: {
-        debouncedSearch(searchTerm);
+        if (!searchTerm || searchTerm.trim() === "") {
+            // Reset search list immediately when input is empty
+            displayItems = {
+                pokemon: [],
+                count: 0,
+                nextPage: null,
+            };
+            errorMessage = "";
+        } else {
+            debouncedSearch(searchTerm);
+        }
     }
 
     const pageTitle = "Brandon Frair's Pokémon Search";

@@ -19,7 +19,7 @@
 
 <Header />
 
-<main aria-labelledby="pokemon-title" class="w-full mt-6">
+<main aria-labelledby="pokemon-title" class="w-full my-6">
     {#if error}
         <div
             class="text-red-600 text-center my-8"
@@ -88,9 +88,35 @@
 
                 <div class="bg-white p-4 rounded-lg shadow-sm">
                     <h2 class="text-lg mb-2 pb-2 border-b border-gray-100">
-                        Stats:
+                        Info:
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
+                        <div class="flex justify-between items-center py-1">
+                            <span class="font-medium text-gray-600"
+                                >Height:</span
+                            >
+                            <span class="font-semibold">{item.height_m} m</span>
+                        </div>
+                        <div class="flex justify-between items-center py-1">
+                            <span class="font-medium text-gray-600"
+                                >Weight:</span
+                            >
+                            <span class="font-semibold"
+                                >{item.weight_kg} kg</span
+                            >
+                        </div>
+                        <div class="flex justify-between items-center py-1">
+                            <span class="font-medium text-gray-600"
+                                >Gender Ratio:</span
+                            >
+                            <span class="font-semibold">
+                                {Math.round(item.percentage_male)}%
+                                <span class="sr-only">male</span>
+                                /
+                                {Math.round(100 - item.percentage_male)}%
+                                <span class="sr-only">female</span>
+                            </span>
+                        </div>
                         <div class="flex justify-between items-center py-1">
                             <span class="font-medium text-gray-600">HP:</span>
                             <span class="font-semibold">{item.hp}</span>
@@ -129,48 +155,6 @@
                             >
                             <span class="font-semibold">{item.base_total}</span>
                         </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h2 class="text-lg mb-2 pb-2 border-b border-gray-100">
-                        Physical Traits:
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
-                        <div class="flex justify-between items-center py-1">
-                            <span class="font-medium text-gray-600"
-                                >Height:</span
-                            >
-                            <span class="font-semibold">{item.height_m} m</span>
-                        </div>
-                        <div class="flex justify-between items-center py-1">
-                            <span class="font-medium text-gray-600"
-                                >Weight:</span
-                            >
-                            <span class="font-semibold"
-                                >{item.weight_kg} kg</span
-                            >
-                        </div>
-                        <div class="flex justify-between items-center py-1">
-                            <span class="font-medium text-gray-600"
-                                >Gender Ratio:</span
-                            >
-                            <span class="font-semibold">
-                                {item.percentage_male}%
-                                <span class="sr-only">male</span>
-                                /
-                                {100 - item.percentage_male}%
-                                <span class="sr-only">female</span>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-4 rounded-lg shadow-sm">
-                    <h2 class="text-lg mb-2 pb-2 border-b border-gray-100">
-                        Info:
-                    </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-7">
                         <div class="flex justify-between items-center py-1">
                             <span class="font-medium text-gray-600"
                                 >Generation:</span
