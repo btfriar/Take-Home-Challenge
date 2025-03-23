@@ -1,14 +1,38 @@
-# Project Notes:
+## Overview
 
-This is a project test from Brandon Friar.
-It serches Pokemon data from https://meowing-bristle-alamosaurus.glitch.me/
-There are two pages, one for searching (/) and one for results (/{id})
+This is a project created by Brandon Friar. It searches Pokémon data from the API at:
+https://meowing-bristle-alamosaurus.glitch.me/
 
-The Project was setup with vite and bun. It uses Sveltekit and tailwindcss.
+### Features
+- **Search Page**: Homepage (/) for searching Pokémon
+- **Details Page**: View specific Pokémon data at /{id}
 
+## Technology Stack
 
-## Run the pokemon App
+This project was built with:
+
+- 🚀 **Vite** - Frontend build tool
+- 🐰 **Bun** - JavaScript runtime
+- 🧡 **SvelteKit** - Framework for building web applications
+- 💨 **TailwindCSS** - Utility-first CSS framework
+
+## Getting Started
+
+### Prerequisites
+- Bun installed on your system
+
+### Installation
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   bun install
+   ```
+
+### Running the App
+Start the development server with:
 ```bash
 bun run dev --open
+```
 
-visit http://localhost:5173 if project doesn't open
+If the project doesn't automatically open, visit:
+[http://localhost:5173](http://localhost:5173)
