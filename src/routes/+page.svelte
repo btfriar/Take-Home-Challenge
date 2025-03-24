@@ -7,7 +7,7 @@
     let errorMessage = "";
     let isFetchingNextPage = false;
 
-    //api response interface
+    //api response interface for pokemon search results
     interface PokemonApiResponse {
         pokemon: Array<{
             id: string;

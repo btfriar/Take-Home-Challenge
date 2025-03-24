@@ -30,7 +30,7 @@
             <a
                 href="/"
                 class="text-blue-600 hover:underline focus:outline-2 focus:outline-offset-2 focus:outline-blue-700"
-                >Go back to Pokémon list</a
+                >Go back to Pokémon Search</a
             >
         </div>
     {:else if item}
@@ -361,7 +361,7 @@
         <a
             href="/"
             class="text-blue-700 no-underline px-4 py-2 bg-gray-100 rounded transition-colors hover:bg-gray-200 hover:underline focus:outline-2 focus:outline-offset-2 focus:outline-blue-700"
-            >Back to Search</a
+            >Back to Pokémon Search</a
         >
     </div>
 </main>
