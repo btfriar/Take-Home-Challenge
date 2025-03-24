@@ -1,7 +1,6 @@
 import type { PageServerLoad } from "./$types";
 
 export const load: PageServerLoad = async ({ params }) => {
-  // Get the id from the URL
   const { id } = params;
   try {
     // Fetch the Pokémon data for the specified ID
@@ -14,7 +13,7 @@ export const load: PageServerLoad = async ({ params }) => {
     }
 
     const item = await response.json();
-    console.log(item);
+    // console.log(item);
     return {
       id,
       item,

@@ -18,7 +18,7 @@
         nextPage: string | null;
     }
 
-    let displayItems: PokemonApiResponse = {
+    let pokemonItems: PokemonApiResponse = {
         pokemon: [],
         count: 0,
         nextPage: null,
@@ -41,14 +41,15 @@
         };
     }
 
-    // Function to fetch pokemon data at api/pokemon/search/{search-word} where pokemon name starts with search-word
+    // Function to fetch pokemon data at api/pokemon/search/{search-word}
+    // where pokemon name starts with search-word
     async function fetchSearchResults(
         search: string,
         pageToken: string | null = null,
         appendResults = false,
     ) {
         if (!search || search.trim() === "") {
-            displayItems = {
+            pokemonItems = {
                 pokemon: [],
                 count: 0,
                 nextPage: null,
@@ -75,7 +76,7 @@
 
             //if the search field is empty, return
             if (!searchTerm.trim()) {
-                displayItems = {
+                pokemonItems = {
                     pokemon: [],
                     count: 0,
                     nextPage: null,
@@ -93,17 +94,17 @@
                 // Save next page token if it exists
                 const currentNextPageToken = data.nextPage || null;
                 //append new results to existing results
-                if (appendResults && displayItems.pokemon) {
-                    displayItems = {
+                if (appendResults && pokemonItems.pokemon) {
+                    pokemonItems = {
                         ...data,
-                        pokemon: [...displayItems.pokemon, ...data.pokemon],
+                        pokemon: [...pokemonItems.pokemon, ...data.pokemon],
                     };
                 } else {
-                    displayItems = data;
+                    pokemonItems = data;
                 }
 
                 setTimeout(() => {
-                    displayItems.nextPage = currentNextPageToken;
+                    pokemonItems.nextPage = currentNextPageToken;
                     if (currentNextPageToken && !isFetchingNextPage) {
                         fetchSearchResults(search, currentNextPageToken, true);
                     }
@@ -123,7 +124,7 @@
                 );
 
                 if (!appendResults) {
-                    displayItems = {
+                    pokemonItems = {
                         pokemon: [],
                         count: 0,
                         nextPage: null,
@@ -140,7 +141,7 @@
                 } else {
                     errorMessage = `Search failed: ${response.statusText || "Unknown error"}`;
                 }
-                displayItems.nextPage = null;
+                pokemonItems.nextPage = null;
             }
         } catch (error) {
             // Only update state if this is still the most recent request
@@ -148,7 +149,7 @@
                 console.error("Error fetching search results:", error);
 
                 if (!appendResults) {
-                    displayItems = {
+                    pokemonItems = {
                         pokemon: [],
                         count: 0,
                         nextPage: null,
@@ -160,7 +161,7 @@
                         ? `Error: ${error.message}`
                         : "An unexpected error occurred";
 
-                displayItems.nextPage = null;
+                pokemonItems.nextPage = null;
             }
         } finally {
             // Update loading states
@@ -178,7 +179,7 @@
     $: {
         if (!searchTerm || searchTerm.trim() === "") {
             // Reset search list immediately when input is empty
-            displayItems = {
+            pokemonItems = {
                 pokemon: [],
                 count: 0,
                 nextPage: null,
@@ -189,7 +190,7 @@
         }
     }
 
-    const pageTitle = "Brandon Frair's Pokémon Search";
+    const pageTitle = "Brandon Friar's Pokémon Search";
     const pageDescription =
         "Search for information about your favorite Pokémon";
 </script>
@@ -212,7 +213,7 @@
 
         <input
             id="pokemon-search"
-            class="w-full p-4 border rounded"
+            class="w-full p-4 border-2 rounded"
             type="text"
             placeholder="Search for Pokémon..."
             bind:value={searchTerm}
@@ -222,9 +223,9 @@
         <div id="search-description" class="sr-only">
             Type to search for Pokémon. Results will appear automatically.
         </div>
-        {#if displayItems.pokemon && displayItems.pokemon.length > 0}
+        {#if pokemonItems.pokemon && pokemonItems.pokemon.length > 0}
             <div class="sr-only" role="status" aria-live="polite">
-                Found {displayItems.count} Pokémon matching your search
+                Found {pokemonItems.count} Pokémon matching your search
             </div>
         {/if}
     </div>
@@ -255,12 +256,12 @@
         >
             <h2 id="search-results-heading" class="sr-only">Search Results</h2>
 
-            {#if searchTerm.trim() !== "" && (!displayItems.pokemon || displayItems.pokemon.length === 0)}
+            {#if searchTerm.trim() !== "" && (!pokemonItems.pokemon || pokemonItems.pokemon.length === 0)}
                 <div class="text-center py-4" role="status">
                     No Pokémon found
                 </div>
             {:else}
-                {#each displayItems.pokemon as item, index (item.id + "-" + index)}
+                {#each pokemonItems.pokemon as item, index (item.id + "-" + index)}
                     <CardLink {item} />
                 {/each}
 
